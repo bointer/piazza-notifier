@@ -51,7 +51,7 @@ def send_email(recipients, subject, body):
     msg = MIMEText(body)
     msg['From'] = f'{Env.SENDER_NAME} <{Env.SENDER_EMAIL}>'
     msg['Subject'] = subject
-    mailer.sendmail(Env.SENDER_EMAIL, recipients, msg)
+    mailer.sendmail(Env.SENDER_EMAIL, recipients, msg.as_bytes())
 
 
 def main():
@@ -113,6 +113,10 @@ def main():
 
     # Close the database file
     db.close()
+
+    print(f'{len(new_resources)} new resources.')
+    print(f'{len(updated_resources)} resources were updated.')
+    print(f'{emails_sent} emails sent.')
 
 
 if __name__ == '__main__':
