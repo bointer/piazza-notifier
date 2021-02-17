@@ -7,3 +7,7 @@ venv/
 
 # Environment file
 env.py
+
+# Logs
+cron.log
+
