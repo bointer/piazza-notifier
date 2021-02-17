@@ -55,6 +55,7 @@ def send_email(recipients, subject, body):
 
 
 def main():
+    print(f'Executing script at {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
     resources = get_resources_from_piazza()
     last_check_time = datetime.now(timezone.utc) - timedelta(minutes=Env.CHECK_FREQUENCY)
 
@@ -117,6 +118,7 @@ def main():
     print(f'{len(new_resources)} new resources.')
     print(f'{len(updated_resources)} resources were updated.')
     print(f'{emails_sent} emails sent.')
+    print('--- END OF EXECUTION ---\n')
 
 
 if __name__ == '__main__':
