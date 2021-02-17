@@ -80,9 +80,10 @@ def main():
     db.row_factory = sqlite3.Row
 
     # Get subscriber list
-    cur = db.execute('SELECT email from emails;')
+    cur = db.execute('SELECT email, subscribed from emails;')
     records = cur.fetchall()
     cur.close()
+    records = filter(lambda record: record['subscribed'] == 1, records)
     subscribers = [record['email'] for record in records]
 
     emails_sent = 0
