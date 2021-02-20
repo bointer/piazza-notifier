@@ -9,7 +9,6 @@ import dateutil.parser
 import json
 import re
 import smtplib
-import sqlite3
 
 # Set up Piazza connection
 piazza = PiazzaRPC(Env.COURSE_NID)
@@ -80,6 +79,7 @@ def main():
     db.row_factory = sqlite3.Row
 
     # Get subscriber list
+    # TODO: use firebase
     cur = db.execute('SELECT email, subscribed from emails;')
     records = cur.fetchall()
     cur.close()
