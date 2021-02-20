@@ -3,12 +3,16 @@ from env import Env
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta, timezone
 from email.mime.text import MIMEText
+from firebase_admin import auth as firebase_auth
+from firebase_admin import credentials as firebase_credentials
 from piazza_api.rpc import PiazzaRPC
 import requests as http
 import dateutil.parser
+import firebase_admin
 import json
 import re
 import smtplib
+
 
 # Set up Piazza connection
 piazza = PiazzaRPC(Env.COURSE_NID)
@@ -72,19 +76,13 @@ def main():
             updated_resources.append(resource)
 
     # Setup database connection
-    db = sqlite3.connect(
-        Env.DB_FILE,
-        detect_types=sqlite3.PARSE_DECLTYPES
-    )
-    db.row_factory = sqlite3.Row
+    cred = firebase_credentials.Certificate(Env.FIREBASE_CREDENTIALS)
+    firebase_admin.initialize_app(cred)
 
     # Get subscriber list
-    # TODO: use firebase
-    cur = db.execute('SELECT email, subscribed from emails;')
-    records = cur.fetchall()
-    cur.close()
-    records = filter(lambda record: record['subscribed'] == 1, records)
-    subscribers = [record['email'] for record in records]
+    subscribers = []
+    for user in firebase_auth.list_users().iterate_all():
+        subscribers.append(user.email)
 
     emails_sent = 0
 
@@ -112,9 +110,6 @@ def main():
         else:
             send_email(subscribers, subject, body)
             emails_sent += 1
-
-    # Close the database file
-    db.close()
 
     print(f'{len(new_resources)} new resources.')
     print(f'{len(updated_resources)} resources were updated.')

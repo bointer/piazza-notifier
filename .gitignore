@@ -7,6 +7,7 @@ venv/
 
 # Environment file
 env.py
+firebase_creds.json
 
 # Logs
 cron.log
