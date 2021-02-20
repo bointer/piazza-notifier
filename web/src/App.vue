@@ -52,7 +52,7 @@ export default {
 
     firebase.auth().onAuthStateChanged((user) => {
       this.user = user;
-      this.email = user.email;
+      this.email = user?.email || "";
     });
   },
   data: function () {
