@@ -34,9 +34,9 @@
 
     <p>
       This service is brought to you by
-      <a href="https://github.com/drewdavis21">Andrew Davis</a>.<br />
+      <a href="https://github.com/bointer">Andrew Davis</a>.<br />
       You can view the source code on
-      <a href="https://github.com/drewdavis21/piazza-notifier">GitHub</a>.
+      <a href="https://github.com/bointer/piazza-notifier">GitHub</a>.
     </p>
   </div>
 </template>
