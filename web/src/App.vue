@@ -31,13 +31,6 @@
         <input type="submit" name="unsubscribe" value="Unsubscribe" />
       </form>
     </div>
-
-    <p>
-      This service is brought to you by
-      <a href="https://github.com/bointer">Andrew Davis</a>.<br />
-      You can view the source code on
-      <a href="https://github.com/bointer/piazza-notifier">GitHub</a>.
-    </p>
   </div>
 </template>
 
